@@ -84,18 +84,18 @@ body{font-family:var(--font-body,'DM Sans',sans-serif);color:var(--text,#0d1f35)
 .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .scroll::-webkit-scrollbar{display:none}
 .spb{padding-bottom:calc(84px + var(--safe))}
-#lang-screen{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:100%;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:#0a1628}
-.ls-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+#lang-screen{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:#0a1628}
+.ls-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;display:none}
 .ls-bg img{width:100%;height:100%;object-fit:cover;display:block}
-.ls-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,22,40,.5) 0%,rgba(10,22,40,.75) 50%,rgba(10,22,40,.95) 100%)}
+.ls-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;background:linear-gradient(to bottom,rgba(10,22,40,.5) 0%,rgba(10,22,40,.75) 50%,rgba(10,22,40,.95) 100%);display:none}
 .ls-content{position:relative;z-index:2;width:100%;padding:0 28px;display:flex;flex-direction:column;align-items:center;gap:0}
 .ls-logo{font-family:var(--font-head,'Playfair Display',serif);color:#fff;font-size:38px;font-weight:700;text-align:center;line-height:1.15;margin-bottom:6px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
 .ls-sub{color:rgba(255,255,255,.65);font-size:13px;text-align:center;letter-spacing:.5px;margin-bottom:22px}
 .ls-divider{width:40px;height:2px;background:rgba(255,255,255,.3);border-radius:2px;margin-bottom:18px}
 .ls-prompt{color:rgba(255,255,255,.8);font-size:14px;text-align:center;line-height:1.7;margin-bottom:22px}
 .ls-prompt span{color:rgba(255,255,255,.5);font-size:12px}
-.ls-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.lbb{width:100%;height:160px;border-radius:20px;border:none;cursor:pointer;font-family:var(--font-body,'DM Sans',sans-serif);transition:all .25s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:16px 12px;background:#1b3a5c}
+.ls-btns{display:flex;gap:20px;justify-content:center;align-items:center}
+.lbb{width:160px;height:160px;border-radius:20px;border:none;cursor:pointer;font-family:var(--font-body,-apple-system,sans-serif);transition:all .25s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;background:#1b3a5c}
 .lbb:active{transform:scale(.96)}
 .lbb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .3s;z-index:0}
 .lbb:active .lbb-bg{transform:scale(1.05)}
@@ -105,8 +105,8 @@ body{font-family:var(--font-body,'DM Sans',sans-serif);color:var(--text,#0d1f35)
 .lbb-txt strong{font-size:15px;font-weight:700;color:#fff}
 .lbb-txt small{font-size:10px;color:rgba(255,255,255,.75)}
 .lbb-arr{display:none}
-.lbb-fr{box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.lbb-en{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.lbb-fr{box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.lbb-en{box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .hero{height:260px;position:relative;overflow:hidden;flex-shrink:0;width:100%}
 .hero-slides{display:flex;height:100%;width:100%;transition:transform .6s cubic-bezier(.4,0,.2,1)}
 .hero-slide{min-width:100%;width:100%;height:100%;position:relative;flex-shrink:0;overflow:hidden}
@@ -349,7 +349,7 @@ body{font-family:var(--font-body,'DM Sans',sans-serif);color:var(--text,#0d1f35)
   .ls-divider{display:none}
   .ls-prompt{font-size:12px;margin-bottom:8px}
   .ls-btns{gap:10px}
-  .lbb{height:100px !important;padding:10px 8px !important;border-radius:14px !important}
+  .lbb{width:120px !important;height:120px !important;padding:10px 8px !important;border-radius:14px !important}
   .lbb-flag{font-size:24px !important}
   .lbb-txt strong{font-size:13px !important}
   .lbb-txt small{font-size:9px !important}
@@ -825,6 +825,7 @@ function rentalCard(item) {
 function renderAll() {
   applySettings();
   applyTheme();
+  applyLangScreen();
   buildSlider();
   renderHomeCats();
   renderCheckin();
@@ -851,6 +852,59 @@ function renderAll() {
   renderVideos();
   renderItins();
   applyTranslations();
+}
+
+function applyLangScreen() {
+  var s = D.settings || {};
+  var bgFr = document.getElementById('lbb-bg-fr');
+  var bgEn = document.getElementById('lbb-bg-en');
+  var maskFr = document.getElementById('lbb-mask-fr');
+  var maskEn = document.getElementById('lbb-mask-en');
+  var lsBg = document.querySelector('.ls-bg');
+  var lsOverlay = document.querySelector('.ls-overlay');
+  var lsImg = document.getElementById('ls-img');
+
+  // Lang screen background
+  if (s.langBgUrl) {
+    if (lsBg) lsBg.style.display = 'block';
+    if (lsOverlay) lsOverlay.style.display = 'block';
+    if (lsImg) lsImg.src = s.langBgUrl;
+  } else {
+    if (lsBg) lsBg.style.display = 'none';
+    if (lsOverlay) lsOverlay.style.display = 'none';
+  }
+
+  // Button FR image
+  if (bgFr && maskFr) {
+    if (s.langBtnFrUrl) {
+      bgFr.style.backgroundImage = "url('" + s.langBtnFrUrl + "')";
+      bgFr.style.backgroundSize = 'cover';
+      bgFr.style.backgroundPosition = 'center';
+      bgFr.style.position = 'absolute';
+      bgFr.style.inset = '0';
+      maskFr.style.display = 'block';
+    } else {
+      bgFr.style.backgroundImage = '';
+      maskFr.style.display = 'none';
+    }
+  }
+  // Button EN image
+  if (bgEn && maskEn) {
+    if (s.langBtnEnUrl) {
+      bgEn.style.backgroundImage = "url('" + s.langBtnEnUrl + "')";
+      bgEn.style.backgroundSize = 'cover';
+      bgEn.style.backgroundPosition = 'center';
+      bgEn.style.position = 'absolute';
+      bgEn.style.inset = '0';
+      maskEn.style.display = 'block';
+    } else {
+      bgEn.style.backgroundImage = '';
+      maskEn.style.display = 'none';
+    }
+  }
+  // Lang screen bg color
+  var ls = document.getElementById('lang-screen');
+  if (ls) ls.style.background = s.langBgColor || '#0a1628';
 }
 
 function applySettings() {
@@ -1152,6 +1206,24 @@ function aSettings(el) {
   <div class="a-sec"><h3>🌿 Description Villa (onglet La Villa)</h3>
     <div class="a-field"><label>Texte FR</label><textarea style="min-height:130px" onchange="D.villaContent.contentFr=this.value;saveData()">${(D.villaContent || {}).contentFr || ''}</textarea></div>
     <div class="a-field"><label>Texte EN</label><textarea style="min-height:130px" onchange="D.villaContent.contentEn=this.value;saveData()">${(D.villaContent || {}).contentEn || ''}</textarea></div>
+  </div>
+  <div class="a-sec"><h3>🌍 Écran de sélection de langue</h3>
+    <div class="a-field"><label>Couleur de fond</label>
+      <div class="color-row">
+        <input type="color" value="${D.settings.langBgColor||'#0a1628'}" oninput="D.settings.langBgColor=this.value;this.nextElementSibling.value=this.value;saveData();applyLangScreen()">
+        <input type="text" value="${D.settings.langBgColor||'#0a1628'}" oninput="D.settings.langBgColor=this.value;this.previousElementSibling.value=this.value;saveData();applyLangScreen()">
+      </div>
+    </div>
+    <div class="a-field"><label>Photo de fond (URL) — laisser vide pour fond uni</label>
+      <input value="${D.settings.langBgUrl||''}" placeholder="https://..." onchange="D.settings.langBgUrl=this.value;saveData();applyLangScreen()">
+      ${D.settings.langBgUrl?'<img src="'+D.settings.langBgUrl+'" style="width:100%;height:80px;object-fit:cover;border-radius:8px;margin-top:6px">':''}
+    </div>
+    <div class="a-field"><label>Image bouton Français (URL) — optionnel</label>
+      <input value="${D.settings.langBtnFrUrl||''}" placeholder="https://..." onchange="D.settings.langBtnFrUrl=this.value;saveData();applyLangScreen()">
+    </div>
+    <div class="a-field"><label>Image bouton English (URL) — optionnel</label>
+      <input value="${D.settings.langBtnEnUrl||''}" placeholder="https://..." onchange="D.settings.langBtnEnUrl=this.value;saveData();applyLangScreen()">
+    </div>
   </div>
   <div class="a-sec"><h3>🔐 Sécurité</h3>
     <div class="a-field"><label>Mot de passe admin</label><input type="password" value="${s.adminPassword || 'admin123'}" onchange="D.settings.adminPassword=this.value;saveData()"></div>
@@ -1622,14 +1694,14 @@ if (!LANG) {
     <p class="ls-prompt">Choisissez votre langue<br><span>Choose your language</span></p>
     <div class="ls-btns">
       <button class="lbb lbb-fr" onclick="initLang('fr')">
-        <div class="lbb-bg" style="background-image:url('https://a0.muscache.com/im/pictures/miso/Hosting-54153972/original/ec3d996c-b4c4-4eec-801e-e74527da4d99.jpeg')"></div>
-        <div class="lbb-mask"></div>
+        <div class="lbb-bg" id="lbb-bg-fr" style="background-image:url('https://a0.muscache.com/im/pictures/miso/Hosting-54153972/original/ec3d996c-b4c4-4eec-801e-e74527da4d99.jpeg');position:absolute;inset:0;background-size:cover;background-position:center"></div>
+        <div class="lbb-mask" id="lbb-mask-fr" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,rgba(0,0,0,.2) 100%)"></div>
         <div class="lbb-flag">🇫🇷</div>
         <div class="lbb-txt"><strong>Français</strong><small>Continuer</small></div>
       </button>
       <button class="lbb lbb-en" onclick="initLang('en')">
-        <div class="lbb-bg" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-54153972/original/8118c41b-9ddc-41e4-a5bb-fcc376265c5a.png')"></div>
-        <div class="lbb-mask"></div>
+        <div class="lbb-bg" id="lbb-bg-en" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-54153972/original/8118c41b-9ddc-41e4-a5bb-fcc376265c5a.png');position:absolute;inset:0;background-size:cover;background-position:center"></div>
+        <div class="lbb-mask" id="lbb-mask-en" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,rgba(0,0,0,.2) 100%)"></div>
         <div class="lbb-flag">🇬🇧</div>
         <div class="lbb-txt"><strong>English</strong><small>Continue</small></div>
       </button>
