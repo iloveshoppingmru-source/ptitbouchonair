@@ -1354,9 +1354,9 @@ function aVisual(el) {
       <div class="font-preview" id="fp-body" style="font-family:${s.bodyFont || "'DM Sans', sans-serif"}">Texte du corps — Preview body text</div>
     </div>
     <div class="a-row2">
-      <div class="a-field"><label>Taille titre hero (px)</label><input type="number" value="${s.heroFontSize || 27}" min="18" max="52" onchange="D.settings.heroFontSize=+this.value;saveData();applyTheme()"></div>
+      <div class="a-field"><label>Taille titre hero (px)</label><input type="number" value="${s.heroFontSize || 30}" min="18" max="52" onchange="D.settings.heroFontSize=+this.value;saveData();applyTheme()"></div>
       <div class="a-field"><label>Taille sous-titre hero (px)</label><input type="number" value="${s.heroSubFontSize || 13}" min="8" max="24" onchange="D.settings.heroSubFontSize=+this.value;saveData();applyTheme()"></div>
-      <div class="a-field"><label>Taille titres sections (px)</label><input type="number" value="${s.cardFontSize || 19}" min="14" max="32" onchange="D.settings.cardFontSize=+this.value;saveData();applyTheme()"></div>
+      <div class="a-field"><label>Taille titres sections (px)</label><input type="number" value="${s.cardFontSize || 26}" min="14" max="32" onchange="D.settings.cardFontSize=+this.value;saveData();applyTheme()"></div>
     </div>
   </div>
   <button class="btn-save" onclick="saveData();renderAll();showSaved(this)">💾 Appliquer le thème</button>`;
