@@ -665,6 +665,15 @@ function loadData() {
   if (!D.catOrder) D.catOrder = ['restaurants','plages','supermarches','voir','activites','boulangeries','taxi','atm','essence'];
   // Force correct catOrder regardless of localStorage
   D.catOrder = ['restaurants','plages','supermarches','voir','activites','boulangeries','taxi','atm','essence'];
+  // Force fix Plaisance phone (localStorage may have old URL)
+  if (D.categories) {
+    var sm = D.categories.find(function(c){ return c.id === 'supermarches'; });
+    if (sm) {
+      var pl = sm.items.find(function(i){ return i.nameFr && i.nameFr.indexOf('laisance') > -1; });
+      if (pl && pl.phone && pl.phone.indexOf('http') === 0) { pl.phone = '+230 403 2400'; }
+      if (pl && (!pl.phone || pl.phone === '')) { pl.phone = '+230 403 2400'; }
+    }
+  }
   if (!D.favs) D.favs = {};
   if (!D.ratings) D.ratings = {};
   if (!D.stats) D.stats = { visits: {}, total: 0 };
