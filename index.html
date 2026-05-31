@@ -662,7 +662,9 @@ function loadData() {
     contentFr: 'Conformément à la réglementation de la Mauritius Revenue Authority (MRA), une taxe touristique de 3 € par personne et par nuit est applicable à tous les visiteurs âgés de 12 ans et plus séjournant dans un hébergement touristique à Maurice.\n\nMerci de votre compréhension et n\'hésitez pas à nous contacter si vous avez des questions.',
     contentEn: 'In accordance with Mauritius Revenue Authority (MRA) regulations, a Tourist Fee of €3 per person per night applies to all visitors aged 12 and above staying in tourist accommodation in Mauritius.\n\nThank you for your understanding. Please feel free to contact us if you have any questions.'
   };
-  if (!D.catOrder) D.catOrder = ['restaurants','plages','supermarches','boulangeries','activites','voir','taxi','atm','essence'];
+  if (!D.catOrder) D.catOrder = ['restaurants','plages','supermarches','voir','activites','boulangeries','taxi','atm','essence'];
+  // Force correct catOrder regardless of localStorage
+  D.catOrder = ['restaurants','plages','supermarches','voir','activites','boulangeries','taxi','atm','essence'];
   if (!D.favs) D.favs = {};
   if (!D.ratings) D.ratings = {};
   if (!D.stats) D.stats = { visits: {}, total: 0 };
@@ -1006,7 +1008,7 @@ function applyTheme() {
 function renderHomeCats() {
   const el = document.getElementById('home-cats-grid');
   if (!el) return;
-  const order = D.catOrder || ['restaurants','plages','supermarches','boulangeries','activites','voir','taxi','atm','essence'];
+  const order = D.catOrder || ['restaurants','plages','supermarches','voir','activites','boulangeries','taxi','atm','essence'];
   const defs = {
     restaurants: { icon:'🍽️', fr:'Restaurants', en:'Restaurants', img:'https://voilahotel.mu/media/5yfhwzvq/lcr-dining.jpg', sc:'s-restaurants' },
     plages:      { icon:'🏖️', fr:'Plages', en:'Beaches', img:'https://www.paxnouvelles.com/storage/app/uploads/public/59f/0a1/f06/thumb_56269_1200_1_0_0_auto.jpg', sc:'s-plages' },
