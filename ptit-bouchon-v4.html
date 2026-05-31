@@ -7,12 +7,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a1628">
 <title>P'tit Bouchon — Guest Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&family=Raleway:wght@400;600;700&family=Lora:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:#e8eef5}
 body{font-family:var(--font-body,'DM Sans',sans-serif);color:var(--text,#0d1f35)}
-:root{--blue:#1b6ca8;--dark:#0a1628;--bg:#f4f8fd;--card:#fff;--text:#0d1f35;--muted:#6b8caa;--border:#dde8f5;--accent:#1b6ca8;--r:16px;--safe:env(safe-area-inset-bottom,0px);--font-head:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;--max:520px;--content-scale:1}
+:root{--blue:#1b6ca8;--dark:#0a1628;--bg:#f4f8fd;--card:#fff;--text:#0d1f35;--muted:#6b8caa;--border:#dde8f5;--accent:#1b6ca8;--r:16px;--safe:env(safe-area-inset-bottom,0px);--font-head:'Georgia','Times New Roman',serif;--font-body:-apple-system,'San Francisco','Helvetica Neue',Arial,sans-serif;--max:520px;--content-scale:1}
 #app-shell{position:fixed;inset:0;display:flex;justify-content:center;background:#e0e8f0}
 
 @media(min-width:600px){
@@ -86,8 +85,8 @@ body{font-family:var(--font-body,'DM Sans',sans-serif);color:var(--text,#0d1f35)
 .scroll::-webkit-scrollbar{display:none}
 .spb{padding-bottom:calc(84px + var(--safe))}
 #lang-screen{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:100%;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:#0a1628}
-.ls-bg{position:absolute;inset:0;z-index:0}
-.ls-bg img{width:100%;height:100%;object-fit:cover}
+.ls-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+.ls-bg img{width:100%;height:100%;object-fit:cover;display:block}
 .ls-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,22,40,.5) 0%,rgba(10,22,40,.75) 50%,rgba(10,22,40,.95) 100%)}
 .ls-content{position:relative;z-index:2;width:100%;padding:0 28px;display:flex;flex-direction:column;align-items:center;gap:0}
 .ls-logo{font-family:var(--font-head,'Playfair Display',serif);color:#fff;font-size:38px;font-weight:700;text-align:center;line-height:1.15;margin-bottom:6px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
@@ -322,34 +321,43 @@ body{font-family:var(--font-body,'DM Sans',sans-serif);color:var(--text,#0d1f35)
 .color-row input[type=text]{flex:1}
 .font-preview{margin-top:6px;padding:8px 12px;background:#f8fbff;border-radius:8px;font-size:14px;color:var(--text);border:1px solid var(--border)}
 .preview-bar{height:4px;border-radius:50px;margin:4px 0}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero{height:160px !important}
+  .ph{height:110px !important}
+  .hero-title{font-size:22px !important}
+  .pill-nav{margin:-14px 12px 0}
+  .hero-top{padding:28px 14px 0}
+  .hero-bottom{padding:0 14px 8px}
+  .hero-logo{font-size:14px}
+  .hero-logo small{font-size:9px}
+  .quick-grid{grid-template-columns:repeat(4,1fr);padding:10px 14px 0;gap:7px}
+  .q-card{padding:8px 6px}
+  .q-ico{font-size:16px;margin-bottom:2px}
+  .spb{padding-bottom:calc(64px + var(--safe))}
+  .bottom-nav{padding:5px 0 calc(5px + var(--safe))}
+  .bnav-item svg{width:18px;height:18px}
+  .bnav-item{font-size:9px;gap:2px;padding:4px 3px}
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  #lang-screen{position:fixed;top:0;left:0;width:100%;height:100%;min-height:100vh;justify-content:flex-start;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:12px 0 20px}
+  .ls-bg,.ls-overlay{position:fixed;top:0;left:0;width:100%;height:100%}
+  .ls-content{padding:0 20px;max-width:700px;gap:0}
+  .ls-logo{font-size:clamp(20px,3.5vw,32px);margin-bottom:4px}
+  .ls-sub{font-size:11px;margin-bottom:6px}
+  .ls-divider{display:none}
+  .ls-prompt{font-size:12px;margin-bottom:8px}
+  .ls-btns{gap:10px}
+  .lbb{height:100px !important;padding:10px 8px !important;border-radius:14px !important}
+  .lbb-flag{font-size:24px !important}
+  .lbb-txt strong{font-size:13px !important}
+  .lbb-txt small{font-size:9px !important}
+}
 </style>
 </head>
 <body>
 
-<div id="lang-screen">
-  <div class="ls-bg"><img id="ls-img" src="https://a0.muscache.com/im/pictures/miso/Hosting-54153972/original/ec3d996c-b4c4-4eec-801e-e74527da4d99.jpeg" alt=""></div>
-  <div class="ls-overlay"></div>
-  <div class="ls-content">
-    <div class="ls-logo" id="ls-title">P'tit Bouchon</div>
-    <div class="ls-sub" id="ls-sub">Villa face à la mer · Île Maurice</div>
-    <div class="ls-divider"></div>
-    <p class="ls-prompt">Choisissez votre langue<br><span>Choose your language</span></p>
-    <div class="ls-btns">
-      <button class="lbb lbb-fr" onclick="initLang('fr')">
-        <div class="lbb-bg" style="background-image:url('https://a0.muscache.com/im/pictures/miso/Hosting-54153972/original/ec3d996c-b4c4-4eec-801e-e74527da4d99.jpeg')"></div>
-        <div class="lbb-mask"></div>
-        <div class="lbb-flag">🇫🇷</div>
-        <div class="lbb-txt"><strong>Français</strong><small>Continuer</small></div>
-      </button>
-      <button class="lbb lbb-en" onclick="initLang('en')">
-        <div class="lbb-bg" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-54153972/original/8118c41b-9ddc-41e4-a5bb-fcc376265c5a.png')"></div>
-        <div class="lbb-mask"></div>
-        <div class="lbb-flag">🇬🇧</div>
-        <div class="lbb-txt"><strong>English</strong><small>Continue</small></div>
-      </button>
-    </div>
-  </div>
-</div>
 
 <div id="app-shell"><div id="app">
 <div class="screen active" id="s-home">
@@ -627,19 +635,21 @@ function loadData() {
   if (!D.stats) D.stats = { visits: {}, total: 0 };
   if (!D.sliderImages) D.sliderImages = (RAW.gallery || []).map(g => ({ url: g.url, caption: g.caption || '' }));
 }
-function saveData() { localStorage.setItem('ptb_v4', JSON.stringify(D)); }
+function saveData() { 
+  try { localStorage.setItem('ptb_v4', JSON.stringify(D)); } catch(e) {} 
+}
 function saveAndMark() { saveData(); markUnsaved(); }
 function getCat(id) { return D.categories.find(c => c.id === id); }
 function uid() { return Math.random().toString(36).slice(2, 8); }
 
 // ── LANGUAGE ──
-let LANG = localStorage.getItem('ptb_lang') || '';
+let LANG = (function(){ try { return localStorage.getItem('ptb_lang') || ''; } catch(e) { return ''; } })();
 function initLang(l) {
   document.getElementById('lang-screen').style.display = 'none';
   setLang(l);
 }
 function setLang(l) {
-  LANG = l; localStorage.setItem('ptb_lang', l);
+  LANG = l; try { localStorage.setItem('ptb_lang', l); } catch(e) {}
   document.querySelectorAll('.lang-opt').forEach(el => el.classList.toggle('active', el.textContent === l.toUpperCase()));
   applyTranslations();
   renderAll();
@@ -710,7 +720,7 @@ function goSlide(i) {
 
 // ── WIFI ──
 function copyWifi() {
-  navigator.clipboard?.writeText(D.checkin?.wifiPass || '').catch(() => {});
+  (navigator.clipboard ? navigator.clipboard.writeText((D.checkin && D.checkin.wifiPass) || '') : Promise.resolve()).catch(() => {});
   const btn = document.querySelector('.wifi-copy');
   btn.innerHTML = '✅ ' + T('Copié!', 'Copied!');
   setTimeout(() => btn.innerHTML = '📋 ' + T('Copier', 'Copy'), 2000);
@@ -867,8 +877,8 @@ function applySettings() {
   const lat = s.villaLat || '-20.4310', lng = s.villaLng || '57.6659';
   const mu = `https://maps.google.com/?q=${lat},${lng}`;
   ['map-btn-h','map-btn-ci'].forEach(id => { const e = document.getElementById(id); if (e) e.href = mu; });
-  document.getElementById('wifi-name-d').textContent = D.checkin?.wifiName || '';
-  document.getElementById('wifi-pass-d').textContent = D.checkin?.wifiPass || '';
+  document.getElementById('wifi-name-d').textContent = (D.checkin && D.checkin.wifiName) || '';
+  document.getElementById('wifi-pass-d').textContent = (D.checkin && D.checkin.wifiPass) || '';
 }
 
 function applyTheme() {
@@ -921,8 +931,8 @@ function renderHomeCats() {
     essence:     { icon:'⛽', fr:'Stations', en:'Gas Stations', img:'https://www.shell.mu/motorists/inside-our-stations/_jcr_content/root/metadata.shellimg.jpeg/1716449461042/shell-station.jpeg', sc:'s-essence' },
   };
   const visible = order.filter(id => defs[id]);
-  const secTitleFr = D.settings?.sectionTitleFr || 'Gastronomie & Sorties';
-  const secTitleEn = D.settings?.sectionTitleEn || 'Food & Outings';
+  const secTitleFr = (D.settings && D.settings.sectionTitleFr) || 'Gastronomie & Sorties';
+  const secTitleEn = (D.settings && D.settings.sectionTitleEn) || 'Food & Outings';
   let html = `<div class="sec-head"><div class="sec-title">${T(secTitleFr, secTitleEn)}</div></div>`;
   if (visible[0]) {
     const c = defs[visible[0]];
@@ -945,7 +955,7 @@ function renderHomeCats() {
 
 function renderCheckin() {
   const el = document.getElementById('checkin-instr');
-  if (!el || !D.checkin?.instructions) return;
+  if (!el || !(D.checkin && D.checkin.instructions)) return;
   el.innerHTML = D.checkin.instructions.map(inst => `
     <div class="info-card" style="cursor:default;align-items:flex-start">
       <div style="font-size:26px;flex-shrink:0">${inst.icon}</div>
@@ -1044,8 +1054,8 @@ function openAdmin() {
 function closeAdmin() { document.getElementById('admin-app').classList.remove('open'); }
 function checkPw() {
   const pw = document.getElementById('admin-pw').value;
-  if (pw === (D.settings?.adminPassword || 'admin123')) {
-    sessionStorage.setItem('ptb_admin', '1');
+  if (pw === ((D.settings && D.settings.adminPassword) || 'admin123')) {
+    try { sessionStorage.setItem('ptb_admin', '1'); } catch(e) {}
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-body').classList.add('open');
     document.getElementById('pw-err').textContent = '';
@@ -1199,13 +1209,13 @@ function aVisual(el) {
   <div class="a-sec"><h3>🔤 Polices (Fonts)</h3>
     <div class="a-field"><label>Police des titres</label>
       <select onchange="D.settings.fontFamily=this.value;saveData();applyTheme()">
-        ${fontOpts('fontFamily',"'Playfair Display', serif",["'Playfair Display', serif","'Georgia', serif","'Merriweather', serif","'Lora', serif","'DM Sans', sans-serif","'Montserrat', sans-serif","'Poppins', sans-serif","'Raleway', sans-serif"])}
+        ${fontOpts('fontFamily',"'Playfair Display', serif",["'Georgia', serif","'Times New Roman', serif","'Palatino', serif","'Baskerville', serif","-apple-system, sans-serif","'Helvetica Neue', sans-serif","'Arial', sans-serif","'Trebuchet MS', sans-serif"])}
       </select>
       <div class="font-preview" id="fp-head" style="font-family:${s.fontFamily || "'Playfair Display', serif"}">P'tit Bouchon — Aperçu titre</div>
     </div>
     <div class="a-field"><label>Police du corps du texte</label>
       <select onchange="D.settings.bodyFont=this.value;saveData();applyTheme()">
-        ${fontOpts('bodyFont',"'DM Sans', sans-serif",["'DM Sans', sans-serif","'Montserrat', sans-serif","'Poppins', sans-serif","'Raleway', sans-serif","'Open Sans', sans-serif","'Lato', sans-serif","'Nunito', sans-serif","'Inter', sans-serif"])}
+        ${fontOpts('bodyFont',"'DM Sans', sans-serif",["-apple-system, sans-serif","'Helvetica Neue', sans-serif","'Arial', sans-serif","'Trebuchet MS', sans-serif","'Verdana', sans-serif","'Georgia', serif","'Palatino', serif","'Courier New', monospace"])}
       </select>
       <div class="font-preview" id="fp-body" style="font-family:${s.bodyFont || "'DM Sans', sans-serif"}">Texte du corps — Preview body text</div>
     </div>
@@ -1550,7 +1560,7 @@ function importBackup(input) {
         return;
       }
       if (confirm('⚠️ Ceci va remplacer TOUTES les données actuelles. Continuer ?')) {
-        localStorage.setItem('ptb_v4', JSON.stringify(imported));
+        try { localStorage.setItem('ptb_v4', JSON.stringify(imported)); } catch(e) {}
         loadData();
         renderAll();
         aTab(22);
@@ -1566,7 +1576,7 @@ function importBackup(input) {
 function resetAllData() {
   if (confirm('⚠️ Réinitialiser TOUTES les données ? Cette action est irréversible !')) {
     if (confirm('Es-tu vraiment sûr ? Toutes tes modifications seront perdues.')) {
-      localStorage.removeItem('ptb_v4');
+      try { localStorage.removeItem('ptb_v4'); } catch(e) {}
       loadData();
       renderAll();
       aTab(0);
@@ -1576,6 +1586,21 @@ function resetAllData() {
 }
 
 // ── INIT ──
+// Force lang screen to cover full viewport
+(function() {
+  var ls = document.getElementById('lang-screen');
+  if (ls) {
+    ls.style.position = 'fixed';
+    ls.style.top = '0';
+    ls.style.left = '0';
+    ls.style.width = '100%';
+    ls.style.height = '100%';
+    ls.style.zIndex = '99999';
+    ls.style.overflowY = 'auto';
+    ls.style.overflowX = 'hidden';
+    ls.style.webkitOverflowScrolling = 'touch';
+  }
+})();
 loadData();
 if (!LANG) {
   document.getElementById('lang-screen').style.display = 'flex';
@@ -1587,5 +1612,29 @@ if (!LANG) {
 </script>
 
 </div><!-- /app-shell -->
+<div id="lang-screen">
+  <div class="ls-bg"><img id="ls-img" src="https://a0.muscache.com/im/pictures/miso/Hosting-54153972/original/ec3d996c-b4c4-4eec-801e-e74527da4d99.jpeg" alt=""></div>
+  <div class="ls-overlay"></div>
+  <div class="ls-content">
+    <div class="ls-logo" id="ls-title">P'tit Bouchon</div>
+    <div class="ls-sub" id="ls-sub">Villa face à la mer · Île Maurice</div>
+    <div class="ls-divider"></div>
+    <p class="ls-prompt">Choisissez votre langue<br><span>Choose your language</span></p>
+    <div class="ls-btns">
+      <button class="lbb lbb-fr" onclick="initLang('fr')">
+        <div class="lbb-bg" style="background-image:url('https://a0.muscache.com/im/pictures/miso/Hosting-54153972/original/ec3d996c-b4c4-4eec-801e-e74527da4d99.jpeg')"></div>
+        <div class="lbb-mask"></div>
+        <div class="lbb-flag">🇫🇷</div>
+        <div class="lbb-txt"><strong>Français</strong><small>Continuer</small></div>
+      </button>
+      <button class="lbb lbb-en" onclick="initLang('en')">
+        <div class="lbb-bg" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-54153972/original/8118c41b-9ddc-41e4-a5bb-fcc376265c5a.png')"></div>
+        <div class="lbb-mask"></div>
+        <div class="lbb-flag">🇬🇧</div>
+        <div class="lbb-txt"><strong>English</strong><small>Continue</small></div>
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
